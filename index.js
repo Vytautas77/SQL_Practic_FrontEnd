@@ -1,4 +1,5 @@
 const carWrapper = document.getElementById("carsWrapper");
+const infoMessageBox = document.getElementById("infoMessageBox");
 const carsFetch = "http://localhost:3000/cars/";
 
 const carCard = (car) => {
@@ -34,7 +35,7 @@ const carCard = (car) => {
         alert("INFORMATION DELETED SUCCESSFULLY.");
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2000);
       }
     } catch (err) {
       alert("INFORMATION NOT DELETED.");
@@ -49,13 +50,35 @@ const carCard = (car) => {
 const getCars = async () => {
   const response = await fetch(carsFetch);
   const cars = await response.json();
-  cars.cars
-    .sort((a, b) => {
-      return a.title > b.title ? 1 : -1;
-    })
-    .forEach((car) => {
-      const card = carCard(car);
-      carWrapper.append(card);
-    });
+  if (cars.cars.length === 0) {
+    const infoBox = document.createElement("div");
+    infoBox.setAttribute("class", "infoBox");
+    infoBox.innerHTML = "There are currently no car ads";
+    infoMessageBox.appendChild(infoBox);
+  } else {
+    cars.cars
+      .sort((a, b) => {
+        return a.title > b.title ? 1 : -1;
+      })
+      .forEach((car) => {
+        const card = carCard(car);
+        carWrapper.append(card);
+      });
+  }
 };
+
 getCars();
+
+// const getCars = async () => {
+//   const response = await fetch(carsFetch);
+//   const cars = await response.json();
+//   cars.cars
+//     .sort((a, b) => {
+//       return a.title > b.title ? 1 : -1;
+//     })
+//     .forEach((car) => {
+//       const card = carCard(car);
+//       carWrapper.append(card);
+//     });
+// };
+// getCars();

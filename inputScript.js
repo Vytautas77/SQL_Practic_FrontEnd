@@ -1,6 +1,7 @@
 const AddBtn = document.getElementById("AddBtn");
 const infoMessage = document.getElementById("infoMessage");
 const linkRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+// const carNumberPlatesRegex = /^[A-Z0-9]{17}$ /; //^[abc\d]{17}$/;
 const inputFetch = "http://localhost:3000/cars";
 
 const inputData = () => {
@@ -12,10 +13,15 @@ const inputData = () => {
     infoMessage.innerHTML = "The Car model field is not entered!";
     throw new Error("The Car model field is not entered!");
   }
+
   if (!carNumberPlates) {
     infoMessage.innerHTML = "The Car number plates field is not entered!";
     throw new Error("The Car number plates field is not entered!");
   }
+  // if (!carNumberPlatesRegex.test(carNumberPlates)) {
+  //   infoMessage.innerHTML = "Invalid car number plate!";
+  //   throw new Error("Invalid car number plate!");
+  // }
   if (!carPhotoUrl) {
     infoMessage.innerHTML = "The Car photo URL field is not entered!";
     throw new Error("The Car photo URL field is not entered!");
@@ -54,7 +60,7 @@ AddBtn.addEventListener("click", async () => {
       infoMessage.innerHTML = "Data uploaded successfully.";
       setTimeout(() => {
         window.location.replace("./index.html");
-      }, 5000);
+      }, 3000);
     }
   } catch (err) {
     infoMessage.innerHTML = "Data upload FAILED.";
