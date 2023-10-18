@@ -50,7 +50,7 @@ const carCard = (car) => {
 const getCars = async () => {
   const response = await fetch(carsFetch);
   const cars = await response.json();
-  if (cars.cars.length === 0) {
+  if (!cars.cars.length) {
     const infoBox = document.createElement("div");
     infoBox.setAttribute("class", "infoBox");
     infoBox.innerHTML = "There are currently no car ads";
